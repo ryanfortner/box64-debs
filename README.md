@@ -1,6 +1,6 @@
 # Box64 Debian Repository
 
-This is a simple Debian repository for the [box64](https://github.com/ptitSeb/box64) project, intended for my own personal use. New versions are compiled every 24 hours.
+This is a simple Debian repository for the [box64](https://github.com/ptitSeb/box64) project, intended for my own personal use. New versions are compiled every 24 hours if a new commit has been made.
 
 ### Repository installation
 Involves adding .list file and gpg key for added security.
