@@ -119,4 +119,4 @@ git add . || error "Failed to run git add"
 git commit -m "Box64 v$BOX64VER was updated to $BOX64COMMIT" || error "Failed to run git commit"
 git push origin master || error "Failed to run git push"
 cd /home/pi/Documents/box64-auto-build
-echo "Today's build has completed successfully.
+echo "Today's build has completed successfully."
