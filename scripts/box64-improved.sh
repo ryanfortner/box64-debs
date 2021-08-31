@@ -6,6 +6,8 @@ DEBDIR="$HOME/Documents/box64-auto-build/debs"
 LATESTCOMMIT="$(cat /home/pi/Documents/box64-auto-build/commit.txt)"
 NOWDAY="$(printf '%(%Y-%m-%d)T\n' -1)"
 COMMITFILE="/home/pi/Documents/box64-auto-build/commit.txt"
+EMAIL="$(cat /home/pi/Documents/box64-auto-build/email)"
+GPGPASS="$(cat /home/pi/Documents/box64-auto-build/gpgpass)"
 
 #error function: prints error in red, touches log and exits
 function error() {
@@ -88,4 +90,33 @@ sudo checkinstall -y -D --pkgversion="$DEBVER" --arch="arm64" --provides="box64"
 #remove home directory from the deb if it exists
 mkdir -p $DEBDIR/box64_${NOWDAY}
 echo $BOX64COMMIT > $DEBDIR/box64-${NOWDAY}/sha1.txt
-mv box64*.deb $DEBDIR/box64_${NOWDAY} || sudo mv box64*.deb $DEBDIR/box64_${NOWDAY}
+mv box64*.deb $DEBDIR/box64_${NOWDAY} || sudo mv box64*.deb $DEBDIR/box64_${NOWDAY} || error "Failed to move deb!"
+cd $DEBDIR/box64_${NOWDAY}
+FILE="$(basename *.deb)" || error "Failed to get deb filename!"
+FILEDIR="$(echo $FILE | cut -c1-28)" || error "Failed to generate name for the deb's directory!"
+dpkg-deb -R $FILE $FILEDIR || error "Failed to extract the deb!"
+rm -r $FILEDIR/home || warning "Couldn't remove home folder from deb."
+cd $DEBDIR || error "Failed to change directory to debdir."
+tar -cJf box64_${NOWDAY}.tar.xz box64_${NOWDAY}/ || error "Failed to compress to tar format!"
+
+#upload the deb, check for latest git commits first.
+cd /home/pi/Documents/box64-debs
+git pull origin master || error "Failed to fetch latest changes!"
+cp -r $DEBDIR/box64-$NOWDAY/box64* /home/pi/Documents/box64-debs/debian/ || error "Failed to copy to debian/ folder"
+cd /home/pi/Documents/box64-debs/debian 
+rm $HOME/Documents/box64-debs/debian/Packages || warning "Failed to remove old 'Packages' file!"
+rm $HOME/Documents/box64-debs/debian/Packages.gz || warning "Failed to remove old 'Packages.gz' archive!"
+rm $HOME/Documents/box64-debs/debian/Release || warning "Failed to remove old 'Release' file!"
+rm $HOME/Documents/box64-debs/debian/Release.gpg || warning "Failed to remove old 'Release.gpg' file!"
+rm $HOME/Documents/box64-debs/debian/InRelease || warning "Failed to remove old 'InRelease' file!"
+dpkg-scanpackages --multiversion . > Packages
+gzip -k -f Packages
+apt-ftparchive release . > Release
+gpg --default-key "${EMAIL}" --batch --pinentry-mode="loopback" --passphrase="$GPGPASS" -abs -o - Release > Release.gpg
+gpg --default-key "${EMAIL}" --batch --pinentry-mode="loopback" --passphrase="$GPGPASS" --clearsign -o - Release > InRelease
+cd /home/pi/Documents/box64-debs/
+git add . || error "Failed to run git add"
+git commit -m "Box64 v$BOX64VER was updated to $BOX64COMMIT" || error "Failed to run git commit"
+git push origin master || error "Failed to run git push"
+cd /home/pi/Documents/box64-auto-build
+echo "Today's build has completed successfully.
