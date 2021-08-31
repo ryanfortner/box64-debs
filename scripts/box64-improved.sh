@@ -58,7 +58,7 @@ function get-box64-version() {
 	if [[ $1 == "ver" ]]; then
 		BOX64VER="$(./box64 -v | cut -c21-25)"
 	elif [[ $1 == "commit" ]]; then
-		BOX64COMMIT="$(./box64 -v | cut -c27-34)"
+		BOX64COMMIT="$(cat /home/pi/Documents/box64-auto-build/commit.txt)"
 	fi
 }
 
