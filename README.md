@@ -7,8 +7,8 @@ These debs have been compiled using RPiOS arm64 upgraded to debian bullseye. ***
 ### Repository installation
 Involves adding .list file and gpg key for added security.
 ```
-sudo wget https://box64.armlinux.ml/box64.list -O /etc/apt/sources.list.d/box64.list
-wget -qO- https://box64.armlinux.ml/KEY.gpg | sudo apt-key add -
+sudo wget https://ryanfortner.github.io/box64-debs/box64.list -O /etc/apt/sources.list.d/box64.list
+wget -qO- https://ryanfortner.github.io/box64-debs/KEY.gpg | sudo apt-key add -
 sudo apt update && sudo apt install box64 -y
 ```
 
