@@ -16,7 +16,7 @@ jobs:
         run: |
           git config user.name 'Ryan Fortner'
           git config user.email 'ryanfortner@users.noreply.github.com'
-          find . -type f -exec sha256sum {} \; | sort > sha256sums.txt
+          find . -type f -exec sha256sum {} \; > sha256sums.txt
           git add sha256sums.txt
           git commit -m "[auto] update checksums"
           git push origin master
