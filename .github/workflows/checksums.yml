@@ -1,0 +1,22 @@
+name: Generate Checksums
+
+on:
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+
+jobs:
+  generate-checksums:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: generate checksums
+        run: |
+          git config user.name 'Ryan Fortner'
+          git config user.email 'ryanfortner@users.noreply.github.com'
+          sha256sum ./* > sha256sums.txt
+          git add sha256sums.txt
+          git commit -m "[auto] update checksums"
+          git push origin master
