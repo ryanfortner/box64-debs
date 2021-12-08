@@ -8,7 +8,7 @@ These debs have been compiled using RPiOS arm64 (Debian Buster). They should wor
 Involves adding .list file and gpg key for added security.
 ```
 sudo wget https://ryanfortner.github.io/box64-debs/box64.list -O /etc/apt/sources.list.d/box64.list
-wget -qO- https://ryanfortner.github.io/box64-debs/KEY.gpg | sudo apt-key add -
+wget -O- https://ryanfortner.github.io/box64-debs/KEY.gpg | gpg --dearmor | sudo tee /usr/share/keyrings/box64-debs-archive-keyring.gpg 
 sudo apt update && sudo apt install box64 -y
 ```
 
