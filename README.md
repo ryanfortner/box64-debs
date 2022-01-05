@@ -12,3 +12,4 @@ wget -O- https://ryanfortner.github.io/box64-debs/KEY.gpg | gpg --dearmor | sudo
 sudo apt update && sudo apt install box64 -y
 ```
 
+If you don't want to add this apt repository to your system, find debs here: https://artifacts.raspbian-addons.org/artifacts/box64/
