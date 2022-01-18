@@ -1,6 +1,6 @@
 # Box64 Debian Repository
 
-This is a simple Debian repository for the [box64](https://github.com/ptitSeb/box64) project. New versions are compiled every 24 hours if a new commit has been made.
+This is a simple Debian repository for the [box64](https://github.com/ptitSeb/box64) project. New versions are compiled every 24 hours if a new commit on box64's repository has been made.
 
 These debs have been compiled using RPiOS arm64 (Debian Buster). They should work on both debian Buster and Bullseye.
 
@@ -12,4 +12,4 @@ wget -O- https://ryanfortner.github.io/box64-debs/KEY.gpg | gpg --dearmor | sudo
 sudo apt update && sudo apt install box64 -y
 ```
 
-If you don't want to add this apt repository to your system, find debs here: https://artifacts.raspbian-addons.org/artifacts/box64/
+If you don't want to add this apt repository to your system, you can download and install the latest arm64 deb here: https://ryanfortner.github.io/box64-debs/box64-latest.deb
