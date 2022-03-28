@@ -23,9 +23,10 @@ else
 fi
 
 #clone box64 using git, write the commit to commit.txt
-mkdir -p cd /github/workspace/build-output
+mkdir -p /github/workspace/build-output
 cd /github/workspace/build-output || error "Failed to enter /github/workspace/build-output directory!"
 rm -rf ./box64/
+rm -rf ./*.deb
 git clone https://github.com/ptitSeb/box64 || error "Failed to clone box64 repo."
 cd ./box64/ || error "Failed to enter box64 directory for some reason!"
 commit="$(bash -c 'git rev-parse HEAD | cut -c 1-8')"

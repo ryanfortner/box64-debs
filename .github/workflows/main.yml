@@ -1,0 +1,28 @@
+name: Main
+
+on:
+  push:
+  schedule:
+    - cron: '0 23 * * *'
+  workflow_dispatch:
+
+jobs:
+  main:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: docker://multiarch/ubuntu-core:armhf-bionic
+        with:
+          args: >
+            bash -c
+            "chmod +x /github/workspace/scripts/build-deb.sh && bash /github/workspace/scripts/build-deb.sh"
+            
+      - name: Upload
+        run: |
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
+          git add .
+          git commit -m "Upload box64 for today" 
+          git push
