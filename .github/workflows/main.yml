@@ -13,7 +13,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - uses: docker://multiarch/ubuntu-core:armhf-bionic
+      - uses: docker://multiarch/ubuntu-core:arm64-bionic
         with:
           args: >
             bash -c
