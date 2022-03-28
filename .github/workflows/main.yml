@@ -17,7 +17,7 @@ jobs:
         with:
           args: >
             bash -c
-            "chmod +x /github/workspace/scripts/build-deb.sh && bash /github/workspace/scripts/build-deb.sh"
+            "echo starting && bash /github/workspace/scripts/build-deb.sh"
             
       - name: Upload
         run: |
