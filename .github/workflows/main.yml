@@ -16,8 +16,7 @@ jobs:
       - uses: docker://multiarch/ubuntu-core:arm64-bionic
         with:
           args: >
-            bash -c
-            "echo starting && chmod +x /github/workspace/scripts/build-deb.sh && /github/workspace/scripts/build-deb.sh"
+            wget -qO- https://github.com/ryanfortner/box64-debs/raw/master/scripts/build-deb.sh | bash
             
       - name: Upload
         run: |
