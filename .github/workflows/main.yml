@@ -16,7 +16,11 @@ jobs:
       - uses: docker://multiarch/ubuntu-core:arm64-bionic
         with:
           args: >
-            wget -qO- https://github.com/ryanfortner/box64-debs/raw/master/scripts/build-deb.sh | bash
+            bash -c
+            "apt update &&
+            apt install make cmake python3 gettext git wget -y &&
+            chmod +x scripts/build-deb.sh &&
+            ./scripts/build-deb.sh"
             
       - name: Upload
         run: |
