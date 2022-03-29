@@ -22,6 +22,11 @@ else
   error "Offline. Go connect to the internet then run the script again. (could not resolve github.com)"
 fi
 
+export DEBIAN_FRONTENT=noninteractive
+
+# update package list, prepare the system by upgrading it.
+sudo apt-get update && sudo apt-get full-upgrade -y
+
 #clone box64 using git, write the commit to commit.txt
 mkdir -p /github/workspace/build-output
 cd /github/workspace/build-output || error "Failed to enter /github/workspace/build-output directory!"
