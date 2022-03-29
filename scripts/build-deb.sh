@@ -3,9 +3,9 @@
 #error function: prints error in red, touches log and exits
 function error() {
 	echo -e "\e[91m$1\e[39m"
-    rm -f $COMMITFILE
-    mv /github/workspace/box64-auto-build/commit.txt.bak /github/workspace/box64-auto-build/commit.txt
-    exit 1
+	rm -f $COMMITFILE
+	mv /github/workspace/box64-auto-build/commit.txt.bak /github/workspace/box64-auto-build/commit.txt
+	exit 1
  	break
 }
 
