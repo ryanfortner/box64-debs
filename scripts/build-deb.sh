@@ -35,7 +35,7 @@ echo $commit > /github/workspace/build-data/commit.txt
 #compile box64
 mkdir ./build/ && cd ./build/
 cmake .. -DCMAKE_BUILD_TYPE=RelWithDebInfo -DARM_DYNAREC=1 || error "Failed to run cmake."
-make || error "Failed to run make."
+make -j4 || error "Failed to run make."
 
 #this function gets the box64 version and commit when it's needed. (Thanks Itai)
 function get-box64-version() {
