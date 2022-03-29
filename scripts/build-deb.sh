@@ -4,7 +4,7 @@
 function error() {
 	echo -e "\e[91m$1\e[39m"
 	rm -f $COMMITFILE
-	mv /github/workspace/box64-auto-build/commit.txt.bak /github/workspace/box64-auto-build/commit.txt
+	mv /github/workspace/build-data/commit.txt.bak /github/workspace/build-data/commit.txt
 	exit 1
  	break
 }
