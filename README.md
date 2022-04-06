@@ -1,6 +1,6 @@
 # Box64 Debian Repository
 
-This is a simple Debian repository for the [box64](https://github.com/ptitSeb/box64) project. New versions are compiled every 24 hours if a new commit on box64's repository has been made.
+This is a simple Debian repository for the [box64](https://github.com/ptitSeb/box64) project. New versions are compiled every 24 hours if a new commit on box64's repository has been made, you can find all the debs here: https://github.com/ryanfortner/box64-debs/commits/master
 
 These debs have been compiled using RPiOS arm64 (Debian Buster). They should work on both debian Buster and Bullseye.
 
