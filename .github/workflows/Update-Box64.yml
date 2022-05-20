@@ -23,6 +23,7 @@ jobs:
           export DEBIAN_FRONTEND=noninteractive
           sudo apt-get update
           sudo apt-get install wget git build-essential python3 make gettext pinentry-tty sudo devscripts dpkg-dev -y
+
       # import gpg key
       - name: Import GPG key
         id: import_gpg
@@ -30,7 +31,8 @@ jobs:
         with:
           gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
           passphrase: ${{ secrets.PASSPHRASE }}
-      - name: List keys
+
+      - name: List GPG keys
         run: gpg -K
 
       # generate a deb
@@ -56,6 +58,7 @@ jobs:
           apt-ftparchive release . > Release
           gpg --default-key "pinetmedia@gmail.com" --batch --pinentry-mode="loopback" --passphrase="${{ secrets.PASSPHRASE }}" -abs -o - Release > Release.gpg || error "failed to sign Release.gpg with gpg "
           gpg --default-key "pinetmedia@gmail.com" --batch --pinentry-mode="loopback" --passphrase="${{ secrets.PASSPHRASE }}" --clearsign -o - Release > InRelease || error "failed to sign InRelease with gpg"
+
       - name: Upload
         run: |
           cd $DIRECTORY
