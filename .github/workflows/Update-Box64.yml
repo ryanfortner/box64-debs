@@ -42,7 +42,7 @@ jobs:
       - uses: docker://multiarch/ubuntu-core:arm64-bionic
         with:
           args: >
-            bash /github/workspace/create-deb.sh
+            bash /github/workspace/create-deb.sh || true
             
       - name: Write new package to repo
         run: |
@@ -64,6 +64,5 @@ jobs:
           cd $GITHUB_WORKSPACE
           git config --global user.email "ryankfortner@gmail.com"
           git config --global user.name "ryanfortner"
-          git add .
-          git commit -m "Update box64 to commit $(cat commit.txt)" 
+          bash -c "git add . && git commit -m 'Update box64 to commit $(cat commit.txt'" || true
           git push
