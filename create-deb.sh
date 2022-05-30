@@ -63,7 +63,7 @@ cp ../LICENSE ./doc-pak || error "Failed to add license to docs"
 echo "Box64 lets you run x86_64 Linux programs (such as games) on non-x86_64 Linux systems, like ARM (host system needs to be 64bit little-endian)">description-pak || error "Failed to create description-pak."
 echo "#!/bin/bash
 echo 'Restarting systemd-binfmt...'
-systemctl restart systemd-binfmt" > postinstall-pak || error "Failed to create postinstall-pak!"
+systemctl restart systemd-binfmt || true" > postinstall-pak || error "Failed to create postinstall-pak!"
 
 sudo checkinstall -y -D --pkgversion="$DEBVER" --arch="arm64" --provides="box64" --conflicts="qemu-user-static" --pkgname="box64" --install="no" make install || error "Checkinstall failed to create a deb package."
 
