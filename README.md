@@ -14,6 +14,19 @@ sudo apt update && sudo apt install box64 -y
 
 If you don't want to add this apt repository to your system, you can download and install the latest arm64 deb from [here](https://github.com/ryanfortner/box64-debs/tree/master/debian).
 
+### Repository installation(CN Mirror from Gitlink)
+
+Only for those Users in CN areas where github is blocked.
+
+Involves adding .list file and gpg key for added security.
+```
+sudo wget https://code.gitlink.org.cn/shenmo7192/box64-debs/raw/branch/master/box64.list -O /etc/apt/sources.list.d/box64.list
+wget -O- https://code.gitlink.org.cn/shenmo7192/box64-debs/raw/branch/master/KEY.gpg | gpg --dearmor | sudo tee /usr/share/keyrings/box64-debs-archive-keyring.gpg 
+sudo apt update && sudo apt install box64 -y
+```
+If you don't want to add this apt repository to your system, you can download and install the latest arm64 deb from [here](https://code.gitlink.org.cn/shenmo7192/box64-debs/src/branch/master/debian).
+
+
 ### Note for box86
 
 Please note that this repository is *only for box64*. If you would like deb packages for box86, check out [box64-debs](https://github.com/ryanfortner/box86-debs)
