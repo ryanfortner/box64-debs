@@ -20,7 +20,7 @@ Only for those Users in CN areas where github is blocked.
 
 Involves adding .list file and gpg key for added security.
 ```
-sudo wget https://code.gitlink.org.cn/shenmo7192/box64-debs/raw/branch/master/box64.list -O /etc/apt/sources.list.d/box64.list
+sudo wget https://code.gitlink.org.cn/shenmo7192/box64-debs/raw/branch/master/box64-CN.list -O /etc/apt/sources.list.d/box64.list
 wget -O- https://code.gitlink.org.cn/shenmo7192/box64-debs/raw/branch/master/KEY.gpg | gpg --dearmor | sudo tee /usr/share/keyrings/box64-debs-archive-keyring.gpg 
 sudo apt update && sudo apt install box64 -y
 ```
