@@ -62,7 +62,7 @@ jobs:
       - name: Upload
         run: |
           if [[ -f exited_succesfuly.txt ]]; then
-            rm exited_succesfuly.txt
+            rm exited_succesfully.txt
             exit 0
           fi
           cd $GITHUB_WORKSPACE
