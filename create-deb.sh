@@ -33,9 +33,9 @@ cd box64
 commit="$(bash -c 'git rev-parse HEAD | cut -c 1-7')"
 if [ "$commit" == "$LATESTCOMMIT" ]; then
   cd "$DIRECTORY"
-  rm -rf "box86"
+  rm -rf "box64"
   echo "Box64 is already up to date. Exiting."
-  touch exited_succesfully.txt
+  touch exited_successfully.txt
   exit 0
 fi
 echo "Box64 is not the latest version, compiling now."
