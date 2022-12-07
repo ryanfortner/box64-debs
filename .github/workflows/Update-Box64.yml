@@ -61,7 +61,7 @@ jobs:
 
       - name: Upload
         run: |
-          if [[ -f exited_succesfuly.txt ]]; then
+          if [[ -f exited_succesfully.txt ]]; then
             rm exited_succesfully.txt
             exit 0
           fi
