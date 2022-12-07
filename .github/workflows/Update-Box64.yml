@@ -61,6 +61,10 @@ jobs:
 
       - name: Upload
         run: |
+          if [[ -f exited_succesfuly.txt ]]; then
+            rm exited_succesfuly.txt
+            exit 0
+          fi
           cd $GITHUB_WORKSPACE
           git config --global user.email "ryankfortner@gmail.com"
           git config --global user.name "ryanfortner"

@@ -32,7 +32,9 @@ git clone https://github.com/ptitSeb/box64 || error "Failed to download box64 re
 cd box64
 commit="$(bash -c 'git rev-parse HEAD | cut -c 1-7')"
 if [ "$commit" == "$LATESTCOMMIT" ]; then
-  error "Box64 is already up to date. Exiting."
+  echo "Box64 is already up to date. Exiting."
+  touch exited_succesfuly.txt
+  exit 0
 fi
 echo "Box64 is not the latest version, compiling now."
 echo $commit > $DIRECTORY/commit.txt
