@@ -41,36 +41,50 @@ fi
 echo "Box64 is not the latest version, compiling now."
 echo $commit > $DIRECTORY/commit.txt
 echo "Wrote commit to commit.txt file for use during the next compilation."
-mkdir build && cd build
-cmake .. -DCMAKE_BUILD_TYPE=RelWithDebInfo -DARM_DYNAREC=1 || error "Failed to run cmake."
-make -j4 || error "Failed to run make."
 
-function get-box64-version() {
-	if [[ $1 == "ver" ]]; then
-		export BOX64VER="$(./box64 -v | cut -c21-25)"
-	elif [[ $1 == "commit" ]]; then
-		export BOX64COMMIT="$commit"
-	fi
-}
+targets=(GENERIC_ARM RPI4ARM64 TEGRAX1 RK3399)
 
-get-box64-version ver  || error "Failed to get box64 version!"
-get-box64-version commit || error "Failed to get box64 commit!"
-DEBVER="$(echo "$BOX64VER+$(date +"%F" | sed 's/-//g').$BOX64COMMIT")" || error "Failed to set debver variable."
+for target in ${targets[@]}; do
 
-mkdir doc-pak || error "Failed to create doc-pak dir."
-cp ../docs/README.md ./doc-pak || warning "Failed to add readme to docs"
-cp ../docs/CHANGELOG.md ./doc-pak || error "Failed to add changelog to docs"
-cp ../docs/USAGE.md ./doc-pak || error "Failed to add USAGE to docs"
-cp ../LICENSE ./doc-pak || error "Failed to add license to docs"
-echo "Box64 lets you run x86_64 Linux programs (such as games) on non-x86_64 Linux systems, like ARM (host system needs to be 64bit little-endian)">description-pak || error "Failed to create description-pak."
-echo "#!/bin/bash
-echo 'Restarting systemd-binfmt...'
-systemctl restart systemd-binfmt || true" > postinstall-pak || error "Failed to create postinstall-pak!"
+  cd "$DIRECTORY/box64"
+  sudo rm -rf build && mkdir build && cd build || error "Could not move to build directory"
+  # warning, BOX64 cmakelists enables crypto with the ARM_DYNAREC options, it was purly by luck that no crypto opts were used which would be a problem since the Pi4 doesn't have them
+  cmake .. -D$target=1 -DCMAKE_BUILD_TYPE=RelWithDebInfo -DARM_DYNAREC=1 || error "Failed to run cmake."
+  make -j4 || error "Failed to run make."
 
-sudo checkinstall -y -D --pkgversion="$DEBVER" --arch="arm64" --provides="box64" --conflicts="qemu-user-static" --pkgname="box64" --install="no" make install || error "Checkinstall failed to create a deb package."
+  function get-box64-version() {
+    if [[ $1 == "ver" ]]; then
+      export BOX64VER="$(./box64 -v | cut -c21-25)"
+    elif [[ $1 == "commit" ]]; then
+      export BOX64COMMIT="$commit"
+    fi
+  }
 
-cd $DIRECTORY
-mv box64/build/*.deb ./debian/ || error "Failed to move deb to debian folder."
+  get-box64-version ver || error "Failed to get box64 version!"
+  get-box64-version commit || error "Failed to get box64 commit!"
+  DEBVER="$(echo "$BOX64VER+$(date +"%F" | sed 's/-//g').$BOX64COMMIT")" || error "Failed to set debver variable."
+
+  mkdir doc-pak || error "Failed to create doc-pak dir."
+  cp ../docs/README.md ./doc-pak || warning "Failed to add readme to docs"
+  cp ../docs/CHANGELOG.md ./doc-pak || error "Failed to add changelog to docs"
+  cp ../docs/USAGE.md ./doc-pak || error "Failed to add USAGE to docs"
+  cp ../LICENSE ./doc-pak || error "Failed to add license to docs"
+  echo "Box64 lets you run x86_64 Linux programs (such as games) on non-x86_64 Linux systems, like ARM (host system needs to be 64bit little-endian)">description-pak || error "Failed to create description-pak."
+  echo "#!/bin/bash
+  echo 'Restarting systemd-binfmt...'
+  systemctl restart systemd-binfmt || true" > postinstall-pak || error "Failed to create postinstall-pak!"
+
+  # use the pi4 target as the default box64 package
+  if [[ $target == "RPI4ARM64" ]]; then
+    sudo checkinstall -y -D --pkgversion="$DEBVER" --arch="arm64" --provides="box64" --conflicts="qemu-user-static" --pkgname="box64" --install="no" make install || error "Checkinstall failed to create a deb package."
+  else
+    sudo checkinstall -y -D --pkgversion="$DEBVER" --arch="arm64" --provides="box64" --conflicts="qemu-user-static" --pkgname="box64-$target" --install="no" make install || error "Checkinstall failed to create a deb package."
+  fi
+
+  cd $DIRECTORY
+  mv box64/build/*.deb ./debian/ || error "Failed to move deb to debian folder."
+
+done
 
 rm -rf $DIRECTORY/box64
 
