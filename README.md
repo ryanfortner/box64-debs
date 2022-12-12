@@ -12,6 +12,8 @@ Package Name | Notes | Install Command |
 | box64-tegrax1 | Box64 built for Tegra X1 systems. | `sudo apt install box64-tegrax1` |
 | box64-rk3399 | Box64 built for rk3399 cpu target. | `sudo apt install box64-rk3399` |
 
+Want me to build for more platforms? Open an issue. 
+
 ### Repository installation
 Involves adding .list file and gpg key for added security.
 ```
