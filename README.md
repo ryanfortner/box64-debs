@@ -32,6 +32,6 @@ Alternatively, download the latest arm64 deb from [here](https://code.gitlink.or
 
 ### Note for box86
 
-Please note that this repository is *only for box64*. If you would like deb packages for box86, check out [box64-debs](https://github.com/ryanfortner/box86-debs).
+Please note that this repository is *only for box64*. If you would like deb packages for box86, check out [box86-debs](https://github.com/ryanfortner/box86-debs).
 
 [![badge](https://github.com/Botspot/pi-apps/blob/master/icons/badge.png?raw=true)](https://github.com/Botspot/pi-apps)  
