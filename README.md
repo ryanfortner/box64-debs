@@ -1,6 +1,6 @@
 # box64-debs
 
-This is a simple Debian repository for the [box64](https://github.com/ptitSeb/box64) project. New versions are compiled every 24 hours if a new commit on the master repository has been made, you can find all the debs here: https://github.com/ryanfortner/box64-debs/commits/master
+This is a simple Debian repository for the [box64](https://github.com/ptitSeb/box64) project. New versions are compiled every 24 hours if a new commit on the master repository has been made.
 
 These debs have been compiled using various target CPUs and systems. You can see all the available pkgs below.
 
