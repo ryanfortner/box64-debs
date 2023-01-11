@@ -8,6 +8,7 @@ These debs have been compiled using various target CPUs and systems. You can see
 Package Name | Notes | Install Command |
 ------------ | ------------- | ------------- |
 | box64 | Box64 built for RPI4ARM64 target. | `sudo apt install box64` |
+| box64-rpi3arm64 | Box64 built for RPI3ARM64 target. | `sudo apt insatll box64-rpi3arm64` |
 | box64-generic-arm | Box64 built for generic ARM systems. | `sudo apt insatll box64-generic-arm` |
 | box64-tegrax1 | Box64 built for Tegra X1 systems. | `sudo apt install box64-tegrax1` |
 | box64-rk3399 | Box64 built for rk3399 cpu target. | `sudo apt install box64-rk3399` |
