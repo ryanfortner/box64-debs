@@ -11,7 +11,9 @@ Package Name | Notes | Install Command |
 | box64-rpi3arm64 | Box64 built for RPI3ARM64 target. | `sudo apt install box64-rpi3arm64` |
 | box64-generic-arm | Box64 built for generic ARM systems. | `sudo apt install box64-generic-arm` |
 | box64-tegrax1 | Box64 built for Tegra X1 systems. | `sudo apt install box64-tegrax1` |
+| box64-rk3588 | Box64 built for rk3588 cpu target. | `sudo apt install box64-rk3588` |
 | box64-rk3399 | Box64 built for rk3399 cpu target. | `sudo apt install box64-rk3399` |
+| box64-rk3326 | Box64 built for rk3326 cpu target. | `sudo apt install box64-rk3326` |
 
 Want me to build for more platforms? Open an issue. 
 
