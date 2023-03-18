@@ -42,14 +42,18 @@ echo "Box64 is not the latest version, compiling now."
 echo $commit > $DIRECTORY/commit.txt
 echo "Wrote commit to commit.txt file for use during the next compilation."
 
-targets=(GENERIC_ARM RPI4ARM64 RPI3ARM64 TEGRAX1 RK3399)
+targets=(GENERIC_ARM ANDROID RPI4ARM64 RPI3ARM64 TEGRAX1 RK3399)
 
 for target in ${targets[@]}; do
 
   cd "$DIRECTORY/box64"
   sudo rm -rf build && mkdir build && cd build || error "Could not move to build directory"
   # warning, BOX64 cmakelists enables crypto with the ARM_DYNAREC options, it was purly by luck that no crypto opts were used which would be a problem since the Pi4 doesn't have them
-  cmake .. -D$target=1 -DCMAKE_BUILD_TYPE=RelWithDebInfo -DARM_DYNAREC=1 || error "Failed to run cmake."
+  if [[ $target == "ANDROID" ]]; then
+    cmake .. -DBAD_SIGNAL=ON -DCMAKE_BUILD_TYPE=RelWithDebInfo -DARM_DYNAREC=1 || error "Failed to run cmake."
+  else
+    cmake .. -D$target=1 -DCMAKE_BUILD_TYPE=RelWithDebInfo -DARM_DYNAREC=1 || error "Failed to run cmake."
+  fi
   make -j4 || error "Failed to run make."
 
   function get-box64-version() {
