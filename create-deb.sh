@@ -78,12 +78,7 @@ for target in ${targets[@]}; do
   echo 'Restarting systemd-binfmt...'
   systemctl restart systemd-binfmt || true" > postinstall-pak || error "Failed to create postinstall-pak!"
 
-  # use the pi4 target as the default box64 package
-  if [[ $target == "RPI4ARM64" ]]; then
-    sudo checkinstall -y -D --pkgversion="$DEBVER" --arch="arm64" --provides="box64" --conflicts="qemu-user-static" --pkgname="box64" --install="no" make install || error "Checkinstall failed to create a deb package."
-  else
-    sudo checkinstall -y -D --pkgversion="$DEBVER" --arch="arm64" --provides="box64" --conflicts="qemu-user-static" --pkgname="box64-$target" --install="no" make install || error "Checkinstall failed to create a deb package."
-  fi
+  sudo checkinstall -y -D --pkgversion="$DEBVER" --arch="arm64" --provides="box64" --conflicts="qemu-user-static" --pkgname="box64-$target" --install="no" make install || error "Checkinstall failed to create a deb package."
 
   cd $DIRECTORY
   mv box64/build/*.deb ./debian/ || error "Failed to move deb to debian folder."
