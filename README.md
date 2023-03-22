@@ -20,7 +20,7 @@ Want me to build for more platforms? Open an issue.
 Involves adding .list file and gpg key for added security.
 ```
 sudo wget https://ryanfortner.github.io/box64-debs/box64.list -O /etc/apt/sources.list.d/box64.list
-wget -O- https://ryanfortner.github.io/box64-debs/KEY.gpg | gpg --dearmor | sudo tee /usr/share/keyrings/box64-debs-archive-keyring.gpg 
+wget -qO- https://ryanfortner.github.io/box64-debs/KEY.gpg | sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/box64-debs-archive-keyring.gpg 
 sudo apt update
 ```
 If you don't want to add this apt repository to your system, you can download and install the latest arm64 deb from [here](https://github.com/ryanfortner/box64-debs/tree/master/debian).
@@ -29,7 +29,7 @@ If you don't want to add this apt repository to your system, you can download an
 Only for users in CN areas where GitHub is blocked.
 ```
 sudo wget https://code.gitlink.org.cn/shenmo7192/box64-debs/raw/branch/master/box64-CN.list -O /etc/apt/sources.list.d/box64.list
-wget -O- https://code.gitlink.org.cn/shenmo7192/box64-debs/raw/branch/master/KEY.gpg | gpg --dearmor | sudo tee /usr/share/keyrings/box64-debs-archive-keyring.gpg 
+wget -qO- https://code.gitlink.org.cn/shenmo7192/box64-debs/raw/branch/master/KEY.gpg | sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/box64-debs-archive-keyring.gpg 
 sudo apt update
 ```
 Alternatively, download the latest arm64 deb from [here](https://code.gitlink.org.cn/shenmo7192/box64-debs/src/branch/master/debian).
