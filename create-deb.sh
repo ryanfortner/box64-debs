@@ -78,7 +78,11 @@ for target in ${targets[@]}; do
   echo 'Restarting systemd-binfmt...'
   systemctl restart systemd-binfmt || true" > postinstall-pak || error "Failed to create postinstall-pak!"
 
-  sudo checkinstall -y -D --pkgversion="$DEBVER" --arch="arm64" --provides="box64" --conflicts="qemu-user-static" --pkgname="box64-$target" --install="no" make install || error "Checkinstall failed to create a deb package."
+  conflict_list="qemu-user-static"
+  for value in "${targets[@]}"; do
+    [[ $value != $target ]] && conflict_list+=", box64-$(echo $value | tr '[:upper:]' '[:lower:]' | tr _ - | sed -r 's/ /, /g')"
+  done
+  sudo checkinstall -y -D --pkgversion="$DEBVER" --arch="arm64" --provides="box64" --conflicts="$conflict_list" --pkgname="box64-$target" --install="no" make install || error "Checkinstall failed to create a deb package."
 
   cd $DIRECTORY
   mv box64/build/*.deb ./debian/ || error "Failed to move deb to debian folder."
