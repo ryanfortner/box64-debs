@@ -39,7 +39,7 @@ jobs:
       - name: Set up multiarch/qemu-user-static
         run: |
           docker run --rm --privileged multiarch/qemu-user-static:register --reset
-      - uses: docker://multiarch/ubuntu-core:arm64-bionic
+      - uses: docker://multiarch/ubuntu-core:arm64-focal
         with:
           args: >
             bash /github/workspace/create-deb.sh || true
