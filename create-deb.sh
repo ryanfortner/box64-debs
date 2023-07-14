@@ -45,6 +45,7 @@ echo "Wrote commit to commit.txt file for use during the next compilation."
 targets=(ARM64 ANDROID RPI4ARM64 RPI3ARM64 TEGRAX1 RK3399)
 
 for target in ${targets[@]}; do
+  echo "Building $target"
 
   cd "$DIRECTORY/box64"
   sudo rm -rf build && mkdir build && cd build || error "Could not move to build directory"
