@@ -20,7 +20,7 @@ cd $DIRECTORY
 # install dependencies
 apt-get update
 apt-get install wget git build-essential python3 make gettext pinentry-tty sudo devscripts dpkg-dev -y || error "Failed to install dependencies"
-git clone https://github.com/giuliomoro/checkinstall || error "Failed to clone checkinstall repo"
+git clone https://github.com/ryanfortner/checkinstall || error "Failed to clone checkinstall repo"
 cd checkinstall
 sudo make install || error "Failed to run make install for Checkinstall!"
 cd .. && rm -rf checkinstall
