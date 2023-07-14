@@ -1,7 +1,7 @@
 #!/bin/bash
 
 DIRECTORY="/github/workspace"
-DEBIAN_FRONTEND=noninteractive
+export DEBIAN_FRONTEND=noninteractive
 
 LATESTCOMMIT=`cat $DIRECTORY/commit.txt`
 
