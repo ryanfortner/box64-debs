@@ -13,6 +13,7 @@ Package Name | Notes | Install Command |
 | box64-tegrax1 | Box64 built for Tegra X1 systems. | `sudo apt install box64-tegrax1` |
 | box64-rk3399 | Box64 built for rk3399 cpu target. | `sudo apt install box64-rk3399` |
 | box64-android | Box64 built with the `-DBAD_SIGNAL=ON` flag | `sudo apt install box64-android` |
+| box64-rk3588 | Box64 built for rk3588 cpu target. | `sudo apt install box64-rk3588` |
 
 Want me to build for more platforms? Open an issue. 
 
