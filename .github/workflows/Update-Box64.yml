@@ -35,15 +35,22 @@ jobs:
       - name: List GPG keys
         run: gpg -K
 
-      # generate a deb
-      - name: Set up multiarch/qemu-user-static
+      - name: generate a deb (bionic builds)
+        run: |
+          docker run --rm --privileged multiarch/qemu-user-static:register --reset
+      - uses: docker://multiarch/ubuntu-core:arm64-bionic
+        with:
+          args: >
+            bash /github/workspace/create-deb-bionic.sh || true
+      
+      - name: generate a deb (focal builds)
         run: |
           docker run --rm --privileged multiarch/qemu-user-static:register --reset
       - uses: docker://multiarch/ubuntu-core:arm64-focal
         with:
           args: >
-            bash /github/workspace/create-deb.sh || true
-            
+            bash /github/workspace/create-deb-focal.sh || true
+
       - name: Write new package to repo
         run: |
           export DIRECTORY="$GITHUB_WORKSPACE"

@@ -3,7 +3,7 @@
 DIRECTORY="/github/workspace"
 export DEBIAN_FRONTEND=noninteractive
 
-LATESTCOMMIT=`cat $DIRECTORY/commit.txt`
+LATESTCOMMIT=`cat $DIRECTORY/commit-focal.txt`
 
 function error() {
 	echo -e "\e[91m$1\e[39m"
@@ -39,10 +39,10 @@ if [ "$commit" == "$LATESTCOMMIT" ]; then
   exit 0
 fi
 echo "Box64 is not the latest version, compiling now."
-echo $commit > $DIRECTORY/commit.txt
-echo "Wrote commit to commit.txt file for use during the next compilation."
+echo $commit > $DIRECTORY/commit-focal.txt
+echo "Wrote commit to commit-focal.txt file for use during the next compilation."
 
-targets=(ARM64 ANDROID RPI4ARM64 RPI3ARM64 TEGRAX1 RK3399 RK3588)
+targets=(RK3588)
 
 for target in ${targets[@]}; do
   echo "Building $target"
