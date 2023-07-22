@@ -67,7 +67,7 @@ for target in ${targets[@]}; do
   DEBVER="$(echo "$BOX64VER+$(date +"%F" | sed 's/-//g').$BOX64COMMIT")" || error "Failed to set debver variable."
 
   mkdir doc-pak || error "Failed to create doc-pak dir."
-  cp ../docs/README.md ./doc-pak || warning "Failed to add readme to docs"
+  cp ../README.md ./doc-pak || error "Failed to add readme to docs"
   cp ../docs/CHANGELOG.md ./doc-pak || error "Failed to add changelog to docs"
   cp ../docs/USAGE.md ./doc-pak || error "Failed to add USAGE to docs"
   cp ../LICENSE ./doc-pak || error "Failed to add license to docs"
