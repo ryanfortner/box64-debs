@@ -17,6 +17,7 @@ jobs:
       - name: Install dependencies
         run: |
           # add dependencies expected by scripts
+          export DEBIAN_FRONTEND=noninteractive
           apt update
           apt install -y software-properties-common lsb-release \
           sudo wget curl build-essential jq autoconf automake \
@@ -100,6 +101,7 @@ jobs:
       - name: Install dependencies
         run: |
           # add dependencies expected by scripts
+          export DEBIAN_FRONTEND=noninteractive
           apt update
           apt install -y software-properties-common lsb-release \
           sudo wget curl build-essential jq autoconf automake \
