@@ -117,7 +117,6 @@ jobs:
           sudo apt install -y libc6:arm64
           # install new enough git to run actions/checkout
           sudo add-apt-repository ppa:git-core/ppa -y
-          sudo add-apt-repository ppa:theofficialgman/cmake-bionic -y
           sudo apt update
           sudo apt install -y git cmake
           # avoid "fatal: detected dubious ownership in repository" error
