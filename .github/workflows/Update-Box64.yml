@@ -83,6 +83,7 @@ jobs:
             exit 0
           fi
           cd $GITHUB_WORKSPACE
+          git config http.postBuffer 3221225472
           git config --global user.email "ryankfortner@gmail.com"
           git config --global user.name "ryanfortner"
           bash -c "git add . && git commit -m '[gcc-8 builds] Update box64 to commit $(cat commit-bionic.txt)'" || true
@@ -166,6 +167,7 @@ jobs:
             exit 0
           fi
           cd $GITHUB_WORKSPACE
+          git config http.postBuffer 3221225472
           git config --global user.email "ryankfortner@gmail.com"
           git config --global user.name "ryanfortner"
           bash -c "git add . && git commit -m '[gcc-9 builds] Update box64 to commit $(cat commit-focal.txt)'" || true
