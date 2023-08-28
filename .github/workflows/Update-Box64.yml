@@ -136,7 +136,7 @@ jobs:
 
       - name: Build debs (focal)
         run: |
-          bash create-deb-focal.sh || true
+          bash create-deb-focal.sh
 
       - name: Import GPG key
         id: import_gpg
