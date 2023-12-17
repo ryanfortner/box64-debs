@@ -6,6 +6,7 @@ on:
   workflow_dispatch:
 
 jobs:
+
   update-box64-bionic:
     runs-on: ubuntu-20.04
     container: ubuntu:18.04
@@ -14,6 +15,7 @@ jobs:
         shell: bash
 
     steps:
+
       - name: Install dependencies
         run: |
           # add dependencies expected by scripts
