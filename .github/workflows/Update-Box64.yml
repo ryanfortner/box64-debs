@@ -6,6 +6,7 @@ on:
   workflow_dispatch:
 
 jobs:
+
   update-box64-bionic:
     runs-on: ubuntu-20.04
     container: ubuntu:18.04
@@ -14,6 +15,14 @@ jobs:
         shell: bash
 
     steps:
+      - name: free disk space
+        run: |
+          sudo swapoff -a
+          sudo rm -f /swapfile
+          sudo apt clean
+          docker rmi $(docker image ls -aq)
+          df -h
+    
       - name: Install dependencies
         run: |
           # add dependencies expected by scripts
