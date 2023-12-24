@@ -37,7 +37,7 @@ targets=(ARM64 ANDROID RPI4ARM64 RPI3ARM64 TEGRAX1 RK3399)
 
 # Update this var with each added target in the repo.
 # Ensures that no two builds can be installed together.
-alltargets=(ARM64 ANDROID RPI4ARM64 RPI3ARM64 TEGRAX1 RK3399 RK3588)
+alltargets=(ARM64 ANDROID RPI4ARM64 RPI3ARM64 TEGRAX1 RK3399 RK3588 SD8G2)
 
 for target in ${targets[@]}; do
   echo "Building $target"
