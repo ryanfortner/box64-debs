@@ -14,6 +14,7 @@ Package Name | Target Distro | Notes | Install Command |
 | box64-rk3399 | >= Ubuntu 18.04 | Box64 built for rk3399 cpu target. | `sudo apt install box64-rk3399` |
 | box64-android | >= Ubuntu 18.04 | Box64 built with the `-DBAD_SIGNAL=ON` flag | `sudo apt install box64-android` |
 | box64-rk3588 | >= Ubuntu 20.04 | Box64 built for rk3588 cpu target. | `sudo apt install box64-rk3588` |
+| box64-SD8G2   | >= Ubuntu 20.04 | Box64 built for Qualcomm SD8G2 cpu target.  | `sudo apt install box64-SD8G2`   |
 
 Want me to build for more platforms? Open an issue. 
 
