@@ -15,6 +15,8 @@ Package Name | Target Distro | Notes | Install Command |
 | box64-android | >= Ubuntu 18.04 | Box64 built with the `-DBAD_SIGNAL=ON` flag | `sudo apt install box64-android` |
 | box64-rk3588 | >= Ubuntu 20.04 | Box64 built for rk3588 cpu target. | `sudo apt install box64-rk3588` |
 | box64-sd8g2   | >= Ubuntu 18.04 | Box64 built for Qualcomm SD8G2 cpu target.  | `sudo apt install box64-SD8G2`   |
+| box64-rpi5arm64 | >= Ubuntu 20.04 | Built for Raspberry Pi 5 (4K page size) | `sudo apt install box64-rpi5arm64` |
+| box64-rpi5arm64ps16k | >= Ubuntu 20.04 | Built for Raspberry Pi 5 (16K page size) | `sudo apt install box64-rpi5arm64ps16k` |
 
 Want me to build for more platforms? Open an issue. 
 
