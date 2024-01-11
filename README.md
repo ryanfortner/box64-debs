@@ -32,11 +32,11 @@ If you don't want to add this apt repository to your system, you can download an
 ### CN mirror installation
 Only for users in CN areas where GitHub is blocked.
 ```
-sudo wget https://code.gitlink.org.cn/shenmo7192/box64-debs/raw/branch/master/box64-CN.list -O /etc/apt/sources.list.d/box64.list
-wget -qO- https://code.gitlink.org.cn/shenmo7192/box64-debs/raw/branch/master/KEY.gpg | sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/box64-debs-archive-keyring.gpg 
+sudo wget https://cdn05042023.gitlink.org.cn/shenmo7192/box64-debs/raw/branch/master/box64-CN.list -O /etc/apt/sources.list.d/box64.list
+wget -qO- https://cdn05042023.gitlink.org.cn/shenmo7192/box64-debs/raw/branch/master/KEY.gpg | sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/box64-debs-archive-keyring.gpg 
 sudo apt update
 ```
-Alternatively, download the latest arm64 deb from [here](https://code.gitlink.org.cn/shenmo7192/box64-debs/src/branch/master/debian).
+Alternatively, download the latest arm64 deb from [here](https://cdn05042023.gitlink.org.cn/shenmo7192/box64-debs/src/branch/master/debian).
 
 ### Note for box86
 
