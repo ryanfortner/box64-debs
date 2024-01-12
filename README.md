@@ -17,6 +17,7 @@ Package Name | Target Distro | Notes | Install Command |
 | box64-sd8g2   | >= Ubuntu 18.04 | Box64 built for Qualcomm SD8G2 cpu target.  | `sudo apt install box64-SD8G2`   |
 | box64-rpi5arm64 | >= Ubuntu 20.04 | Built for Raspberry Pi 5 (4K page size) | `sudo apt install box64-rpi5arm64` |
 | box64-rpi5arm64ps16k | >= Ubuntu 20.04 | Built for Raspberry Pi 5 (16K page size) | `sudo apt install box64-rpi5arm64ps16k` |
+| box64-lx2160a | >= Ubuntu 20.04 | Built for SolidRun LX2160A Honeycomb (see [#24](https://github.com/ryanfortner/box64-debs/issues/24)) | `sudo apt install box64-lx2160a` |
 
 Want me to build for more platforms? Open an issue. 
 
