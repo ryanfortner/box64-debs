@@ -31,7 +31,7 @@ sudo apt update && sudo apt install box64-rpi4arm64 -y
 If you don't want to add this apt repository to your system, you can download and install the latest arm64 deb from [here](https://github.com/ryanfortner/box64-debs/tree/master/debian).
 
 ### CN mirror installation
-Only for users in CN areas where GitHub is blocked.
+Only for users in CN areas where GitHub is blocked. ***Disclaimer: I do not run this, use at your own risk***
 ```
 sudo wget https://cdn05042023.gitlink.org.cn/shenmo7192/box64-debs/raw/branch/master/box64-CN.list -O /etc/apt/sources.list.d/box64.list
 wget -qO- https://cdn05042023.gitlink.org.cn/shenmo7192/box64-debs/raw/branch/master/KEY.gpg | sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/box64-debs-archive-keyring.gpg 
