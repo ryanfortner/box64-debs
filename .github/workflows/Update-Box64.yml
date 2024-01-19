@@ -6,99 +6,12 @@ on:
   workflow_dispatch:
 
 jobs:
-
-  update-box64-bionic:
-    runs-on: ubuntu-20.04
-    container: ubuntu:18.04
-    defaults:
-      run:
-        shell: bash
-
-    steps:
-
-      - name: Install dependencies
-        run: |
-          # add dependencies expected by scripts
-          export DEBIAN_FRONTEND=noninteractive
-          apt update
-          apt install -y software-properties-common lsb-release \
-          sudo wget curl build-essential jq autoconf automake \
-          pkg-config ca-certificates rpm apt-utils \
-          python3 make gettext pinentry-tty devscripts dpkg-dev \
-          gcc-8-aarch64-linux-gnu g++-8-aarch64-linux-gnu binutils-aarch64-linux-gnu pkg-config-aarch64-linux-gnu \
-          qemu-user-static
-          sudo sed -i "s/^deb/deb [arch=amd64,i386]/g" /etc/apt/sources.list
-          echo "deb [arch=arm64,armhf] http://ports.ubuntu.com/ $(lsb_release -s -c) main universe multiverse restricted" | sudo tee -a /etc/apt/sources.list
-          echo "deb [arch=arm64,armhf] http://ports.ubuntu.com/ $(lsb_release -s -c)-updates main universe multiverse restricted" | sudo tee -a /etc/apt/sources.list
-          sudo dpkg --add-architecture arm64
-          sudo apt update
-          sudo apt install -y libc6:arm64
-          # install new enough git to run actions/checkout
-          sudo add-apt-repository ppa:git-core/ppa -y
-          sudo add-apt-repository ppa:theofficialgman/cmake-bionic -y
-          sudo apt update
-          sudo apt install -y git cmake
-          # avoid "fatal: detected dubious ownership in repository" error
-          git config --global --add safe.directory '*'
-
-      - uses: actions/checkout@v3
-        with:
-          ref: ${{ github.ref }}
-
-      - name: Install checkinstall
-        run: |
-          git clone https://github.com/ryanfortner/checkinstall
-          cd checkinstall
-          sudo make install
-          cd .. && rm -rf checkinstall
-
-      - name: Build debs (bionic)
-        run: |
-          bash create-deb-bionic.sh || true
-
-      - name: Import GPG key
-        id: import_gpg
-        uses: crazy-max/ghaction-import-gpg@v5
-        with:
-          gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
-          passphrase: ${{ secrets.PASSPHRASE }}
-        
-      - name: Write new package to repo
-        run: |
-          export DIRECTORY="$GITHUB_WORKSPACE"
-          cd $DIRECTORY/debian
-          rm $DIRECTORY/debian/Packages || echo "Failed to remove packages file"
-          rm $DIRECTORY/debian/Packages.gz || echo "Failed to remove packages.gz file"
-          rm $DIRECTORY/debian/Release || echo "Failed to remove release file"
-          rm $DIRECTORY/debian/Release.gpg || echo "Failed to remove release.gpg file"
-          rm $DIRECTORY/debian/InRelease || echo "Failed to remove inrelease file"
-          dpkg-scanpackages --multiversion . > Packages
-          gzip -k -f Packages
-          apt-ftparchive release . > Release
-          gpg --default-key "pinetmedia@gmail.com" --batch --pinentry-mode="loopback" --passphrase="${{ secrets.PASSPHRASE }}" -abs -o - Release > Release.gpg || error "failed to sign Release.gpg with gpg "
-          gpg --default-key "pinetmedia@gmail.com" --batch --pinentry-mode="loopback" --passphrase="${{ secrets.PASSPHRASE }}" --clearsign -o - Release > InRelease || error "failed to sign InRelease with gpg"
-
-      - name: Upload
-        run: |
-          if [[ -f exited_successfully.txt ]]; then
-            rm exited_successfully.txt
-            exit 0
-          fi
-          cd $GITHUB_WORKSPACE
-          git config http.postBuffer 3221225472
-          git config --global user.email "ryankfortner@gmail.com"
-          git config --global user.name "ryanfortner"
-          bash -c "git add . && git commit -m '[gcc-8 builds] Update box64 to commit $(cat commit-bionic.txt)'" || true
-          git push
-
   update-box64-focal:
     runs-on: ubuntu-20.04
     container: ubuntu:20.04
     defaults:
       run:
         shell: bash
-
-    needs: update-box64-bionic
 
     steps:
       - name: Install dependencies
