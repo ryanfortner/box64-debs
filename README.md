@@ -7,14 +7,14 @@ These debs have been compiled using various target CPUs and systems. You can see
 ## Package List
 Package Name | Target Distro | Notes | Install Command |
 ------------ | ------------- | ------------- | ------------- |
-| box64-rpi4arm64 | >= Ubuntu 18.04 | Box64 built for RPI4ARM64 target. | `sudo apt install box64-rpi4arm64` |
-| box64-rpi3arm64 | >= Ubuntu 18.04 | Box64 built for RPI3ARM64 target. | `sudo apt install box64-rpi3arm64` |
-| box64-arm64 | >= Ubuntu 18.04 | Box64 built for generic ARM 64-bit systems. Older builds for this target were under box64-generic-arm. | `sudo apt install box64-arm64` |
-| box64-tegrax1 | >= Ubuntu 18.04 | Box64 built for Tegra X1 systems. | `sudo apt install box64-tegrax1` |
-| box64-rk3399 | >= Ubuntu 18.04 | Box64 built for rk3399 cpu target. | `sudo apt install box64-rk3399` |
-| box64-android | >= Ubuntu 18.04 | Box64 built with the `-DBAD_SIGNAL=ON` flag | `sudo apt install box64-android` |
+| box64-rpi4arm64 | >= Ubuntu 20.04 | Box64 built for RPI4ARM64 target. | `sudo apt install box64-rpi4arm64` |
+| box64-rpi3arm64 | >= Ubuntu 20.04 | Box64 built for RPI3ARM64 target. | `sudo apt install box64-rpi3arm64` |
+| box64-arm64 | >= Ubuntu 20.04 | Box64 built for generic ARM 64-bit systems. Older builds for this target were under box64-generic-arm. | `sudo apt install box64-arm64` |
+| box64-tegrax1 | >= Ubuntu 20.04 | Box64 built for Tegra X1 systems. | `sudo apt install box64-tegrax1` |
+| box64-rk3399 | >= Ubuntu 20.04 | Box64 built for rk3399 cpu target. | `sudo apt install box64-rk3399` |
+| box64-android | >= Ubuntu 20.04 | Box64 built with the `-DBAD_SIGNAL=ON` flag | `sudo apt install box64-android` |
 | box64-rk3588 | >= Ubuntu 20.04 | Box64 built for rk3588 cpu target. | `sudo apt install box64-rk3588` |
-| box64-sd8g2   | >= Ubuntu 18.04 | Box64 built for Qualcomm SD8G2 cpu target.  | `sudo apt install box64-SD8G2`   |
+| box64-sd8g2   | >= Ubuntu 20.04 | Box64 built for Qualcomm SD8G2 cpu target.  | `sudo apt install box64-SD8G2`   |
 | box64-rpi5arm64 | >= Ubuntu 20.04 | Built for Raspberry Pi 5 (4K page size) | `sudo apt install box64-rpi5arm64` |
 | box64-rpi5arm64ps16k | >= Ubuntu 20.04 | Built for Raspberry Pi 5 (16K page size) | `sudo apt install box64-rpi5arm64ps16k` |
 | box64-lx2160a | >= Ubuntu 20.04 | Built for SolidRun LX2160A Honeycomb (see [#24](https://github.com/ryanfortner/box64-debs/issues/24)) | `sudo apt install box64-lx2160a` |
