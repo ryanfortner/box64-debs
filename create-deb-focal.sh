@@ -33,7 +33,11 @@ echo "Box64 is not the latest version, compiling now."
 echo $commit > $DIRECTORY/commit-focal.txt
 echo "Wrote commit to commit-focal.txt file for use during the next compilation."
 
-targets=(ARM64 ANDROID RPI4ARM64 RPI3ARM64 TEGRAX1 RK3399 SD8G2 RK3588 RPI5ARM64 RPI5ARM64PS16K LX2160A)
+targets=(RK3588 RPI5ARM64 RPI5ARM64PS16K LX2160A)
+
+# Update this var with each added target in the repo.
+# Ensures that no two builds can be installed together.
+alltargets=(ARM64 ANDROID RPI4ARM64 RPI3ARM64 TEGRAX1 RK3399 RK3588 SD8G2 RPI5ARM64 RPI5ARM64PS16K LX2160A)
 
 for target in ${targets[@]}; do
   echo "Building $target"
@@ -44,9 +48,9 @@ for target in ${targets[@]}; do
   sed -i "s/NOT _x86 AND NOT _x86_64/true/g" ../CMakeLists.txt
   # warning, BOX64 cmakelists enables crypto with the ARM_DYNAREC options, it was purly by luck that no crypto opts were used which would be a problem since the Pi4 doesn't have them
   if [[ $target == "ANDROID" ]]; then
-    cmake .. -DBAD_SIGNAL=ON -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_C_COMPILER=aarch64-linux-gnu-gcc-11 -DARM_DYNAREC=ON || error "Failed to run cmake."
+    cmake .. -DBAD_SIGNAL=ON -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_C_COMPILER=aarch64-linux-gnu-gcc-9 -DARM_DYNAREC=ON || error "Failed to run cmake."
   else
-    cmake .. -D$target=1 -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_C_COMPILER=aarch64-linux-gnu-gcc-11 -DARM_DYNAREC=ON || error "Failed to run cmake."
+    cmake .. -D$target=1 -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_C_COMPILER=aarch64-linux-gnu-gcc-9 -DARM_DYNAREC=ON || error "Failed to run cmake."
   fi
   make -j8 || error "Failed to run make."
 
@@ -73,7 +77,7 @@ for target in ${targets[@]}; do
   systemctl restart systemd-binfmt || true" > postinstall-pak || error "Failed to create postinstall-pak!"
 
   conflict_list="qemu-user-static"
-  for value in "${targets[@]}"; do
+  for value in "${alltargets[@]}"; do
     [[ $value != $target ]] && conflict_list+=", box64-$(echo $value | tr '[:upper:]' '[:lower:]' | tr _ - | sed -r 's/ /, /g')"
   done
   sudo checkinstall -y -D --pkgversion="$DEBVER" --arch="arm64" --provides="box64" --conflicts="$conflict_list" --maintainer="Ryan Fortner <ryankfortner@gmail.com>" --pkglicense="MIT" --pkgsource="https://github.com/ptitSeb/box64" --pkggroup="utils" --pkgname="box64-$target" --install="no" make install || error "Checkinstall failed to create a deb package."
