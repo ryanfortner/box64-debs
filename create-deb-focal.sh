@@ -33,11 +33,11 @@ echo "Box64 is not the latest version, compiling now."
 echo $commit > $DIRECTORY/commit-focal.txt
 echo "Wrote commit to commit-focal.txt file for use during the next compilation."
 
-targets=(RK3588 RPI5ARM64 RPI5ARM64PS16K LX2160A)
+targets=(RK3588 RPI5ARM64 RPI5ARM64PS16K LX2160A TEGRA_T194)
 
 # Update this var with each added target in the repo.
 # Ensures that no two builds can be installed together.
-alltargets=(ARM64 ANDROID RPI4ARM64 RPI3ARM64 TEGRAX1 RK3399 RK3588 SD8G2 RPI5ARM64 RPI5ARM64PS16K LX2160A)
+alltargets=(ARM64 ANDROID RPI4ARM64 RPI3ARM64 TEGRAX1 RK3399 RK3588 SD8G2 RPI5ARM64 RPI5ARM64PS16K LX2160A TEGRA_T194)
 
 for target in ${targets[@]}; do
   echo "Building $target"
