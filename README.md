@@ -18,6 +18,8 @@ Package Name | Target Distro | Notes | Install Command |
 | box64-rpi5arm64 | >= Ubuntu 20.04 | Built for Raspberry Pi 5 (4K page size) | `sudo apt install box64-rpi5arm64` |
 | box64-rpi5arm64ps16k | >= Ubuntu 20.04 | Built for Raspberry Pi 5 (16K page size) | `sudo apt install box64-rpi5arm64ps16k` |
 | box64-lx2160a | >= Ubuntu 20.04 | Built for SolidRun LX2160A Honeycomb (see [#24](https://github.com/ryanfortner/box64-debs/issues/24)) | `sudo apt install box64-lx2160a` |
+| box64-tegra-t194 | >= Ubuntu 20.04 | | `sudo apt install box64-tegra-t194` |
+| box64-m1 | >= Ubuntu 20.04 | Built for Asahi Linux (M1 macs) | `sudo apt isntall box64-m1` |
 
 Want me to build for more platforms? Open an issue. 
 
