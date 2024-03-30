@@ -91,7 +91,7 @@ done
 # keeps github pages builds fast and below 1GB suggested limit
 # thanks to gman from pi-apps
 cd $DIRECTORY
-ls ./debian/box64-*.deb | sort -t '+' -k 2 | head -n -28 | xargs -r rm
+ls ./debian/box64-*.deb | sort -t '+' -k 2 | head -n -24 | xargs -r rm
 
 rm -rf $DIRECTORY/box64
 
