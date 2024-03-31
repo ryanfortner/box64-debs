@@ -45,6 +45,9 @@ for target in ${targets[@]}; do
   # warning, BOX64 cmakelists enables crypto with the ARM_DYNAREC options, it was purly by luck that no crypto opts were used which would be a problem since the Pi4 doesn't have them
   if [[ $target == "ANDROID" ]]; then
     cmake .. -DBAD_SIGNAL=ON -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_C_COMPILER=aarch64-linux-gnu-gcc-9 -DARM_DYNAREC=ON || error "Failed to run cmake."
+  elif [[ $target == "SD8G2" ]]; then
+    # SD8G2 requires gcc 8 to build for some reason...
+    cmake .. -D$target=1 -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_C_COMPILER=aarch64-linux-gnu-gcc-8 -DARM_DYNAREC=ON || error "Failed to run cmake."
   else
     cmake .. -D$target=1 -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_C_COMPILER=aarch64-linux-gnu-gcc-9 -DARM_DYNAREC=ON || error "Failed to run cmake."
   fi
