@@ -48,9 +48,9 @@ jobs:
           sudo make install
           cd .. && rm -rf checkinstall
 
-      - name: Build debs (focal)
+      - name: Build debs
         run: |
-          bash create-deb-focal.sh
+          bash create-deb.sh
 
       - name: Import GPG key
         id: import_gpg
