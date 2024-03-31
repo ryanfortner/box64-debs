@@ -3,7 +3,7 @@
 DIRECTORY=$(pwd)
 export DEBIAN_FRONTEND=noninteractive
 
-LATESTCOMMIT=`cat $DIRECTORY/commit-focal.txt`
+LATESTCOMMIT=`cat $DIRECTORY/commit.txt`
 
 function error() {
 	echo -e "\e[91m$1\e[39m"
@@ -30,8 +30,8 @@ if [ "$commit" == "$LATESTCOMMIT" ]; then
   exit 0
 fi
 echo "Box64 is not the latest version, compiling now."
-echo $commit > $DIRECTORY/commit-focal.txt
-echo "Wrote commit to commit-focal.txt file for use during the next compilation."
+echo $commit > $DIRECTORY/commit.txt
+echo "Wrote commit to commit.txt file for use during the next compilation."
 
 targets=(RK3588 RPI5ARM64 RPI5ARM64PS16K LX2160A TEGRA_T194 M1)
 
@@ -56,7 +56,7 @@ for target in ${targets[@]}; do
 
   function get-box64-version() {
     if [[ $1 == "ver" ]]; then
-      export BOX64VER="$(qemu-aarch64-static ./box64 -v | cut -c21-25)"
+      export BOX64VER="$(cat ../src/box64version.h | sed -n -e 's/^.*BOX64_MAJOR //p')"."$(cat ../src/box64version.h | sed -n -e 's/^.*BOX64_MINOR //p')"."$(cat ../src/box64version.h | sed -n -e 's/^.*BOX64_REVISION //p')"
     elif [[ $1 == "commit" ]]; then
       export BOX64COMMIT="$commit"
     fi
