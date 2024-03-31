@@ -33,7 +33,7 @@ echo "Box64 is not the latest version, compiling now."
 echo $commit > $DIRECTORY/commit.txt
 echo "Wrote commit to commit.txt file for use during the next compilation."
 
-targets=(ARM64 ANDROID RPI4ARM64 RPI3ARM64 TEGRAX1 RK3399 RK3588 SD8G2 RPI5ARM64 RPI5ARM64PS16K LX2160A TEGRA_T194 M1)
+targets=(ARM64 ANDROID RPI4ARM64 RPI3ARM64 TEGRAX1 RK3399 RK3588 RPI5ARM64 RPI5ARM64PS16K LX2160A TEGRA_T194 M1)
 
 for target in ${targets[@]}; do
   echo "Building $target"
@@ -45,9 +45,6 @@ for target in ${targets[@]}; do
   # warning, BOX64 cmakelists enables crypto with the ARM_DYNAREC options, it was purly by luck that no crypto opts were used which would be a problem since the Pi4 doesn't have them
   if [[ $target == "ANDROID" ]]; then
     cmake .. -DBAD_SIGNAL=ON -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_C_COMPILER=aarch64-linux-gnu-gcc-9 -DARM_DYNAREC=ON || error "Failed to run cmake."
-  elif [[ $target == "SD8G2" ]]; then
-    # SD8G2 requires gcc 8 to build for some reason...
-    cmake .. -D$target=1 -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_C_COMPILER=aarch64-linux-gnu-gcc-8 -DARM_DYNAREC=ON || error "Failed to run cmake."
   else
     cmake .. -D$target=1 -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_C_COMPILER=aarch64-linux-gnu-gcc-9 -DARM_DYNAREC=ON || error "Failed to run cmake."
   fi

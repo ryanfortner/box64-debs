@@ -16,7 +16,6 @@ Package Name | Notes | Install Command |
 | box64-rk3399 | Box64 built for rk3399 cpu target. | `sudo apt install box64-rk3399` |
 | box64-android | Box64 built with the `-DBAD_SIGNAL=ON` flag | `sudo apt install box64-android` |
 | box64-rk3588  | Box64 built for rk3588 cpu target. | `sudo apt install box64-rk3588` |
-| box64-sd8g2   | Box64 built for Qualcomm SD8G2 cpu target.  | `sudo apt install box64-SD8G2`   |
 | box64-rpi5arm64  | Built for Raspberry Pi 5 (4K page size) | `sudo apt install box64-rpi5arm64` |
 | box64-rpi5arm64ps16k  | Built for Raspberry Pi 5 (16K page size) | `sudo apt install box64-rpi5arm64ps16k` |
 | box64-lx2160a  | Built for SolidRun LX2160A Honeycomb (see [#24](https://github.com/ryanfortner/box64-debs/issues/24)) | `sudo apt install box64-lx2160a` |
