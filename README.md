@@ -18,6 +18,7 @@ If you don't want to add this apt repository to your system, you can download an
 <details>
 <summary>CN mirror installation (click to expand)</summary>
 <br>
+
 Only for users in CN areas where GitHub is blocked. ***Disclaimer: I do not run this, use at your own risk***
 ```
 sudo wget https://cdn05042023.gitlink.org.cn/shenmo7192/box64-debs/raw/branch/master/box64-CN.list -O /etc/apt/sources.list.d/box64.list
@@ -25,6 +26,7 @@ wget -qO- https://cdn05042023.gitlink.org.cn/shenmo7192/box64-debs/raw/branch/ma
 sudo apt update
 ```
 Alternatively, download the latest arm64 deb from [here](https://cdn05042023.gitlink.org.cn/shenmo7192/box64-debs/src/branch/master/debian).
+
 </details>
 
 ### Package List
