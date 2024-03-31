@@ -11,7 +11,7 @@ Package Name | Notes | Install Command |
 ------------ | ------------- | ------------- |
 | box64-rpi4arm64 | Box64 built for RPI4ARM64 target. | `sudo apt install box64-rpi4arm64` |
 | box64-rpi3arm64 | Box64 built for RPI3ARM64 target. | `sudo apt install box64-rpi3arm64` |
-| box64-arm64 | Box64 built for generic ARM 64-bit systems. Older builds for this target were under box64-generic-arm. | `sudo apt install box64-arm64` |
+| box64 | Box64 built for generic ARM 64-bit systems. Older builds for this target were under box64-generic-arm or box64-arm64. | `sudo apt install box64` |
 | box64-tegrax1 | Box64 built for Tegra X1 systems. | `sudo apt install box64-tegrax1` |
 | box64-rk3399 | Box64 built for rk3399 cpu target. | `sudo apt install box64-rk3399` |
 | box64-android | Box64 built with the `-DBAD_SIGNAL=ON` flag | `sudo apt install box64-android` |
