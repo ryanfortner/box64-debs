@@ -33,11 +33,7 @@ echo "Box64 is not the latest version, compiling now."
 echo $commit > $DIRECTORY/commit.txt
 echo "Wrote commit to commit.txt file for use during the next compilation."
 
-targets=(RK3588 RPI5ARM64 RPI5ARM64PS16K LX2160A TEGRA_T194 M1)
-
-# Update this var with each added target in the repo.
-# Ensures that no two builds can be installed together.
-alltargets=(ARM64 ANDROID RPI4ARM64 RPI3ARM64 TEGRAX1 RK3399 RK3588 SD8G2 RPI5ARM64 RPI5ARM64PS16K LX2160A TEGRA_T194 M1)
+targets=(ARM64 ANDROID RPI4ARM64 RPI3ARM64 TEGRAX1 RK3399 RK3588 SD8G2 RPI5ARM64 RPI5ARM64PS16K LX2160A TEGRA_T194 M1)
 
 for target in ${targets[@]}; do
   echo "Building $target"
@@ -77,12 +73,13 @@ for target in ${targets[@]}; do
   systemctl restart systemd-binfmt || true" > postinstall-pak || error "Failed to create postinstall-pak!"
 
   conflict_list="qemu-user-static"
-  for value in "${alltargets[@]}"; do
+  for value in "${targets[@]}"; do
     [[ $value != $target ]] && conflict_list+=", box64-$(echo $value | tr '[:upper:]' '[:lower:]' | tr _ - | sed -r 's/ /, /g')"
   done
   
   if [[ $target == "ARM64" ]]; then
     sudo checkinstall -y -D --pkgversion="$DEBVER" --arch="arm64" --provides="box64" --conflicts="$conflict_list" --maintainer="Ryan Fortner <ryankfortner@gmail.com>" --pkglicense="MIT" --pkgsource="https://github.com/ptitSeb/box64" --pkggroup="utils" --pkgname="box64" --install="no" make install || error "Checkinstall failed to create a deb package."
+    ls | grep box64
   else
     sudo checkinstall -y -D --pkgversion="$DEBVER" --arch="arm64" --provides="box64" --conflicts="$conflict_list" --maintainer="Ryan Fortner <ryankfortner@gmail.com>" --pkglicense="MIT" --pkgsource="https://github.com/ptitSeb/box64" --pkggroup="utils" --pkgname="box64-$target" --install="no" make install || error "Checkinstall failed to create a deb package."
   fi
