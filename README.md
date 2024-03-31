@@ -7,7 +7,7 @@ These debs have been compiled using various target CPUs and systems. You can see
 All packages built on Ubuntu Focal and are compatible with gcc-9 and higher.
 
 ### Repository installation
-Involves adding .list file and gpg key for added security. Most users will just need the generic arm64 package, `box64`, but please see the package list below if you have a specifically supported system.
+Involves adding .list file and gpg key for added security. Most users will just need the generic arm64 package, `box64`, but please see the package list below if you have a specifically supported system (Raspberry Pi, ROCKchip, etc...)
 ```
 sudo wget https://ryanfortner.github.io/box64-debs/box64.list -O /etc/apt/sources.list.d/box64.list
 wget -qO- https://ryanfortner.github.io/box64-debs/KEY.gpg | sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/box64-debs-archive-keyring.gpg 
