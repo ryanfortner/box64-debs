@@ -45,8 +45,6 @@ Package Name | Notes | Install Command |
 | box64-tegra-t194  | | `sudo apt install box64-tegra-t194` |
 | box64-m1  | Built for Asahi Linux (M1 macs) | `sudo apt isntall box64-m1` |
 
-**box32 and box32-binfmt build flags are enabled on all builds**
-
 Want me to build for more platforms? Open an issue. 
 
 ### Note for box86
