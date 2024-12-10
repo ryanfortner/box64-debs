@@ -44,10 +44,7 @@ jobs:
 
       - name: Install checkinstall
         run: |
-          git clone https://github.com/ryanfortner/checkinstall
-          cd checkinstall
-          sudo make install
-          cd .. && rm -rf checkinstall
+          sudo apt install checkinstall -y
 
       - name: Build debs
         run: |
