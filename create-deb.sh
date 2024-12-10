@@ -1,5 +1,7 @@
 #!/bin/bash
 
+echo $(nproc)
+
 DIRECTORY=$(pwd)
 export DEBIAN_FRONTEND=noninteractive
 
@@ -79,7 +81,6 @@ for target in ${targets[@]}; do
   
   if [[ $target == "ARM64" ]]; then
     sudo checkinstall -y -D --pkgversion="$DEBVER" --arch="arm64" --provides="box64" --conflicts="$conflict_list" --maintainer="Ryan Fortner <ryankfortner@gmail.com>" --pkglicense="MIT" --pkgsource="https://github.com/ptitSeb/box64" --pkggroup="utils" --pkgname="box64" --install="no" make install || error "Checkinstall failed to create a deb package."
-    ls | grep box64
   else
     sudo checkinstall -y -D --pkgversion="$DEBVER" --arch="arm64" --provides="box64" --conflicts="$conflict_list" --maintainer="Ryan Fortner <ryankfortner@gmail.com>" --pkglicense="MIT" --pkgsource="https://github.com/ptitSeb/box64" --pkggroup="utils" --pkgname="box64-$target" --install="no" make install || error "Checkinstall failed to create a deb package."
   fi
