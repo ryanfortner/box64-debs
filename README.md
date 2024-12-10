@@ -4,7 +4,7 @@ This is a simple Debian repository for the [box64](https://github.com/ptitSeb/bo
 
 These debs have been compiled using various target CPUs and systems. You can see all the available pkgs below.
 
-All packages built on Ubuntu Focal and are compatible with gcc-9 and higher.
+All packages built on Ubuntu Jammy and are compatible with gcc-11 and higher.
 
 ### Repository installation
 Involves adding .list file and gpg key for added security. Most users will just need the generic arm64 package, `box64`, but please see the package list below if you have a specifically supported system (Raspberry Pi, ROCKchip, etc...)
@@ -46,6 +46,8 @@ Package Name | Notes | Install Command |
 | box64-m1  | Built for Asahi Linux (M1 macs) | `sudo apt isntall box64-m1` |
 
 Want me to build for more platforms? Open an issue. 
+
+**All builds contain box32 and box32-binfmt flags**
 
 ### Note for box86
 
