@@ -44,6 +44,8 @@ Package Name | Notes | Install Command |
 | box64-lx2160a  | Built for SolidRun LX2160A Honeycomb (see [#24](https://github.com/ryanfortner/box64-debs/issues/24)) | `sudo apt install box64-lx2160a` |
 | box64-tegra-t194  | | `sudo apt install box64-tegra-t194` |
 | box64-m1  | Built for Asahi Linux (M1 macs) | `sudo apt isntall box64-m1` |
+| box64-sd888 | Built for Snapdragon 888-based devices | `sudo apt install box64-sd888` |
+| box64-sdoryon1 | Built for Snapdragon Oryon 1 (X1E80100/X1E78100) based devices | `sudo apt install box64-sdoryon1` |
 
 Want me to build for more platforms? Open an issue. 
 
