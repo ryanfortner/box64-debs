@@ -17,11 +17,7 @@ function error() {
 
 # Install dependencies
 apt-get update
-apt-get install wget git build-essential gcc-11 python3 make gettext pinentry-tty sudo devscripts dpkg-dev cmake -y || error "Failed to install dependenceis."
-git clone https://github.com/giuliomoro/checkinstall || error "Failed to clone checkinstall repo"
-cd checkinstall
-sudo make install || error "Failed to run make install for Checkinstall!"
-cd .. && rm -rf checkinstall
+apt-get install wget git build-essential gcc-11 python3 make gettext pinentry-tty sudo devscripts dpkg-dev cmake checkinstall -y || error "Failed to install dependenceis."
 
 rm -rf $DIRECTORY/box64
 
