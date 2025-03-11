@@ -15,6 +15,14 @@ function error() {
  	break
 }
 
+# Install dependencies
+apt-get update
+apt-get install wget git build-essential gcc-11 python3 make gettext pinentry-tty sudo devscripts dpkg-dev cmake -y || error "Failed to install dependenceis.
+git clone https://github.com/giuliomoro/checkinstall || error "Failed to clone checkinstall repo"
+cd checkinstall
+sudo make install || error "Failed to run make install for Checkinstall!"
+cd .. && rm -rf checkinstall
+
 rm -rf $DIRECTORY/box64
 
 cd $DIRECTORY
@@ -43,7 +51,7 @@ for target in ${targets[@]}; do
   cd "$DIRECTORY/box64"
   sudo rm -rf build && mkdir build && cd build || error "Could not move to build directory"
   # allow installation even on x86_64 (needed for checkinstall)
-  sed -i "s/NOT _x86 AND NOT _x86_64/true/g" ../CMakeLists.txt
+  # sed -i "s/NOT _x86 AND NOT _x86_64/true/g" ../CMakeLists.txt
   # warning, BOX64 cmakelists enables crypto with the ARM_DYNAREC options, it was purly by luck that no crypto opts were used which would be a problem since the Pi4 doesn't have them
   if [[ $target == "ANDROID" ]]; then
     cmake .. -DBAD_SIGNAL=ON -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_C_COMPILER=aarch64-linux-gnu-gcc-11 -DARM_DYNAREC=ON -DBOX32=1 -DBOX32_BINFMT=1 || error "Failed to run cmake."
