@@ -6,12 +6,17 @@ on:
      - cron: '0 6 * * *'
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
+    inputs:
+      publish:
+        description: 'Sign the repo metadata with GPG and push the built package'
+        type: boolean
+        default: true
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   update-box64:
       # The type of runner that the job will run on
-      runs-on: ubuntu-24.04-arm
+      runs-on: ubuntu-26.04-arm
 
       # Steps represent a sequence of tasks that will be executed as part of the job
       steps:
@@ -22,19 +27,22 @@ jobs:
 
         - name: Import GPG key
           id: import_gpg
+          if: github.event_name != 'workflow_dispatch' || inputs.publish
           uses: crazy-max/ghaction-import-gpg@v5
           with:
             gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
             passphrase: ${{ secrets.PASSPHRASE }}
         
         - name: Install dependencies and build in Docker container
-          uses: docker://arm64v8/ubuntu:22.04
+          uses: docker://arm64v8/ubuntu:26.04
           with:
             entrypoint: "/bin/bash"
             args: /github/workspace/docker-script.sh
         
         - name: Write new package to repo
           run: |
+            sudo apt-get update
+            sudo apt-get install -y apt-utils
             export DIRECTORY="$GITHUB_WORKSPACE"
             cd $DIRECTORY/debian
             rm $DIRECTORY/debian/Packages || echo "Failed to remove packages file"
@@ -45,10 +53,13 @@ jobs:
             dpkg-scanpackages --multiversion . > Packages
             gzip -k -f Packages
             apt-ftparchive release . > Release
-            gpg --default-key "pinetmedia@gmail.com" --batch --pinentry-mode="loopback" --passphrase="${{ secrets.PASSPHRASE }}" -abs -o - Release > Release.gpg || error "failed to sign Release.gpg with gpg "
-            gpg --default-key "pinetmedia@gmail.com" --batch --pinentry-mode="loopback" --passphrase="${{ secrets.PASSPHRASE }}" --clearsign -o - Release > InRelease || error "failed to sign InRelease with gpg"
+            if [[ "${{ github.event_name != 'workflow_dispatch' || inputs.publish }}" == "true" ]]; then
+              gpg --default-key "pinetmedia@gmail.com" --batch --pinentry-mode="loopback" --passphrase="${{ secrets.PASSPHRASE }}" -abs -o - Release > Release.gpg || error "failed to sign Release.gpg with gpg "
+              gpg --default-key "pinetmedia@gmail.com" --batch --pinentry-mode="loopback" --passphrase="${{ secrets.PASSPHRASE }}" --clearsign -o - Release > InRelease || error "failed to sign InRelease with gpg"
+            fi
 
         - name: Upload
+          if: github.event_name != 'workflow_dispatch' || inputs.publish
           run: |
             if [[ -f exited_successfully.txt ]]; then
               rm exited_successfully.txt
