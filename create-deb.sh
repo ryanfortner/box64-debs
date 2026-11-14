@@ -15,10 +15,6 @@ function error() {
  	break
 }
 
-# Install dependencies
-apt-get update
-apt-get install wget git build-essential gcc-11 python3 make gettext pinentry-tty sudo devscripts dpkg-dev cmake checkinstall -y || error "Failed to install dependenceis."
-
 rm -rf $DIRECTORY/box64
 
 cd $DIRECTORY
@@ -39,7 +35,7 @@ echo "Box64 is not the latest version, compiling now."
 echo $commit > $DIRECTORY/commit.txt
 echo "Wrote commit to commit.txt file for use during the next compilation."
 
-targets=(ARM64 SDORYON1 SD888 ANDROID RPI4ARM64 RPI3ARM64 TEGRAX1 RK3399 RK3588 RPI5ARM64 RPI5ARM64PS16K LX2160A TEGRA_T194 M1)
+targets=(ARM64 SDORYON1 SD888 ANDROID RPI4ARM64 RPI3ARM64 TEGRAX1 RK3399 RK3588 RPI5ARM64 RPI5ARM64PS16K LX2160A TEGRA_T194 TEGRA_T234 NVIDIA_GB10 M1)
 
 for target in ${targets[@]}; do
   echo "Building $target"
@@ -50,9 +46,9 @@ for target in ${targets[@]}; do
   # sed -i "s/NOT _x86 AND NOT _x86_64/true/g" ../CMakeLists.txt
   # warning, BOX64 cmakelists enables crypto with the ARM_DYNAREC options, it was purly by luck that no crypto opts were used which would be a problem since the Pi4 doesn't have them
   if [[ $target == "ANDROID" ]]; then
-    cmake .. -DBAD_SIGNAL=ON -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_C_COMPILER=aarch64-linux-gnu-gcc-11 -DARM_DYNAREC=ON -DBOX32=1 -DBOX32_BINFMT=1 || error "Failed to run cmake."
+    cmake .. -DBAD_SIGNAL=ON -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_C_COMPILER=aarch64-linux-gnu-gcc-15 -DARM_DYNAREC=ON -DBOX32=1 -DBOX32_BINFMT=1 || error "Failed to run cmake."
   else
-    cmake .. -D$target=1 -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_C_COMPILER=aarch64-linux-gnu-gcc-11 -DARM_DYNAREC=ON -DBOX32=1 -DBOX32_BINFMT=1 || error "Failed to run cmake."
+    cmake .. -D$target=1 -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_C_COMPILER=aarch64-linux-gnu-gcc-15 -DARM_DYNAREC=ON -DBOX32=1 -DBOX32_BINFMT=1 || error "Failed to run cmake."
   fi
   make -j8 || error "Failed to run make."
 
@@ -84,9 +80,9 @@ for target in ${targets[@]}; do
   done
   
   if [[ $target == "ARM64" ]]; then
-    sudo checkinstall -y -D --pkgversion="$DEBVER" --arch="arm64" --provides="box64" --conflicts="$conflict_list" --maintainer="Ryan Fortner <ryankfortner@gmail.com>" --pkglicense="MIT" --pkgsource="https://github.com/ptitSeb/box64" --pkggroup="utils" --pkgname="box64" --install="no" make install || error "Checkinstall failed to create a deb package."
+    sudo checkinstall -y -D --pkgversion="$DEBVER" --arch="arm64" --provides="box64" --conflicts="$conflict_list" --maintainer="Ryan Fortner \<ryankfortner@gmail.com\>" --pkglicense="MIT" --pkgsource="https://github.com/ptitSeb/box64" --pkggroup="utils" --pkgname="box64" --install="no" --fstrans="no" make install || error "Checkinstall failed to create a deb package."
   else
-    sudo checkinstall -y -D --pkgversion="$DEBVER" --arch="arm64" --provides="box64" --conflicts="$conflict_list" --maintainer="Ryan Fortner <ryankfortner@gmail.com>" --pkglicense="MIT" --pkgsource="https://github.com/ptitSeb/box64" --pkggroup="utils" --pkgname="box64-$target" --install="no" make install || error "Checkinstall failed to create a deb package."
+    sudo checkinstall -y -D --pkgversion="$DEBVER" --arch="arm64" --provides="box64" --conflicts="$conflict_list" --maintainer="Ryan Fortner \<ryankfortner@gmail.com\>" --pkglicense="MIT" --pkgsource="https://github.com/ptitSeb/box64" --pkggroup="utils" --pkgname="box64-$target" --install="no" --fstrans="no" make install || error "Checkinstall failed to create a deb package."
   fi
 
   cd $DIRECTORY
